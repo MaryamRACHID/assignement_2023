@@ -1,8 +1,8 @@
 package ma.octo.assignement.web;
-
-import ma.octo.assignement.domain.Compte;
-import ma.octo.assignement.domain.Utilisateur;
-import ma.octo.assignement.domain.Transfer;
+/*
+import ma.octo.assignement.domain.models.Compte;
+import ma.octo.assignement.domain.models.Utilisateur;
+import ma.octo.assignement.domain.models.Transfer;
 import ma.octo.assignement.dto.TransferDto;
 import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
@@ -28,22 +28,28 @@ class TransferController {
 
     Logger LOGGER = LoggerFactory.getLogger(TransferController.class);
 
-    @Autowired
-    private CompteRepository rep1;
-    @Autowired
-    private TransferRepository re2;
-    @Autowired
-    private AuditService monservice;
+    private CompteRepository compteRepository;
 
-    private final UtilisateurRepository re3;
+    private TransferRepository transferRepository;
+
+    private AuditService auditService;
+
+
+
+    private final UtilisateurRepository utilisateurRepository;
 
     @Autowired
-    TransferController(UtilisateurRepository re3) {
-        this.re3 = re3;
+    public TransferController(CompteRepository compteRepository, TransferRepository transferRepository,
+                              AuditService auditService, UtilisateurRepository utilisateurRepository) {
+        this.compteRepository = compteRepository;
+        this.transferRepository = transferRepository;
+        this.auditService = auditService;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
+
     @GetMapping("listDesTransferts")
-    List<Transfer> loadAll() {
+    public List<Transfer> loadAllTransfer() {
         LOGGER.info("Lister des utilisateurs");
         var all = re2.findAll();
 
@@ -55,7 +61,7 @@ class TransferController {
     }
 
     @GetMapping("listOfAccounts")
-    List<Compte> loadAllCompte() {
+    public List<Compte> loadAllCompte() {
         List<Compte> all = rep1.findAll();
 
         if (CollectionUtils.isEmpty(all)) {
@@ -66,7 +72,7 @@ class TransferController {
     }
 
     @GetMapping("lister_utilisateurs")
-    List<Utilisateur> loadAllUtilisateur() {
+    public List<Utilisateur> loadAllUtilisateur() {
         List<Utilisateur> all = re3.findAll();
 
         if (CollectionUtils.isEmpty(all)) {
@@ -81,8 +87,7 @@ class TransferController {
     public void createTransaction(@RequestBody TransferDto transferDto)
             throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException {
         Compte c1 = rep1.findByNrCompte(transferDto.getNrCompteEmetteur());
-        Compte f12 = rep1
-                .findByNrCompte(transferDto.getNrCompteBeneficiaire());
+        Compte f12 = rep1.findByNrCompte(transferDto.getNrCompteBeneficiaire());
 
         if (c1 == null) {
             System.out.println("Compte Non existant");
@@ -145,3 +150,4 @@ class TransferController {
         re2.save(Transfer);
     }
 }
+*/

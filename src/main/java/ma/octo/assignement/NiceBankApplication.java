@@ -1,11 +1,11 @@
 package ma.octo.assignement;
 
-import ma.octo.assignement.domain.Compte;
-import ma.octo.assignement.domain.Utilisateur;
-import ma.octo.assignement.domain.Transfer;
-import ma.octo.assignement.repository.CompteRepository;
-import ma.octo.assignement.repository.UtilisateurRepository;
-import ma.octo.assignement.repository.TransferRepository;
+import ma.octo.assignement.models.Compte;
+import ma.octo.assignement.models.Utilisateur;
+import ma.octo.assignement.models.Transfer;
+import ma.octo.assignement.repositories.CompteRepository;
+import ma.octo.assignement.repositories.UtilisateurRepository;
+import ma.octo.assignement.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,8 +31,8 @@ public class NiceBankApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 		Utilisateur utilisateur1 = new Utilisateur();
 		utilisateur1.setUsername("user1");
-		utilisateur1.setLastname("last1");
-		utilisateur1.setFirstname("first1");
+		utilisateur1.setLastName("last1");
+		utilisateur1.setFirstName("first1");
 		utilisateur1.setGender("Male");
 
 		utilisateurRepository.save(utilisateur1);
@@ -40,8 +40,8 @@ public class NiceBankApplication implements CommandLineRunner {
 
 		Utilisateur utilisateur2 = new Utilisateur();
 		utilisateur2.setUsername("user2");
-		utilisateur2.setLastname("last2");
-		utilisateur2.setFirstname("first2");
+		utilisateur2.setLastName("last2");
+		utilisateur2.setFirstName("first2");
 		utilisateur2.setGender("Female");
 
 		utilisateurRepository.save(utilisateur2);
