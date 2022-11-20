@@ -1,9 +1,11 @@
 package ma.octo.assignement.controllers;
 
 import ma.octo.assignement.dto.CompteDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.services.CompteService;
 import ma.octo.assignement.controllers.api.CompteAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class CompteController implements CompteAPI {
 
 
     @Override
-    public CompteDto save(CompteDto compteDto)  { return compteService.save(compteDto); }
+    public CompteDto save(CompteDto compteDto) throws CompteNonExistantException { return compteService.save(compteDto); }
 
     @Override
     public List<CompteDto> loadAllCompte() {

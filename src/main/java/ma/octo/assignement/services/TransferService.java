@@ -1,6 +1,7 @@
 package ma.octo.assignement.services;
 
 import ma.octo.assignement.dto.TransferDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
 import ma.octo.assignement.exceptions.TransactionException;
 
@@ -20,6 +21,6 @@ public interface TransferService {
 
     void delete(Long id);
 
-    TransferDto createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException;
+    TransferDto createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException, CompteNonExistantException;
 
 }

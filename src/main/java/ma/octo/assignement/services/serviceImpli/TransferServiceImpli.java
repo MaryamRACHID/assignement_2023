@@ -1,25 +1,30 @@
 package ma.octo.assignement.services.serviceImpli;
 
 import lombok.extern.slf4j.Slf4j;
+import ma.octo.assignement.dto.CompteDto;
 import ma.octo.assignement.models.Compte;
 import ma.octo.assignement.models.Transfer;
+import ma.octo.assignement.repositories.CompteRepository;
+import ma.octo.assignement.services.CompteService;
 import ma.octo.assignement.utils.EventType;
 import ma.octo.assignement.dto.TransferDto;
 import ma.octo.assignement.exceptions.*;
-import ma.octo.assignement.repositories.CompteRepository;
 import ma.octo.assignement.repositories.TransferRepository;
 import ma.octo.assignement.services.AuditService;
 import ma.octo.assignement.services.TransferService;
 import ma.octo.assignement.validators.TransferValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional
 public class TransferServiceImpli implements TransferService {
 
     private TransferRepository transferRepository;
@@ -27,12 +32,15 @@ public class TransferServiceImpli implements TransferService {
 
     private AuditService auditService;
 
+    private CompteService compteService;
+
     @Autowired
     public TransferServiceImpli(TransferRepository transferRepository, CompteRepository compteRepository,
-                                AuditService auditService) {
+                                AuditService auditService, CompteService compteService) {
         this.transferRepository = transferRepository;
         this.compteRepository = compteRepository;
         this.auditService = auditService;
+        this.compteService = compteService;
     }
 
     @Override
@@ -90,10 +98,7 @@ public class TransferServiceImpli implements TransferService {
     }
 
     @Override
-    public TransferDto createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException {
-
-        Compte compteEmetteur = compteRepository.findByNrCompte(transferDto.getNrCompteEmetteur());
-        Compte compteBeneficiaire = compteRepository.findByNrCompte(transferDto.getNrCompteBeneficiaire());
+    public TransferDto createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException, CompteNonExistantException {
 
         List<String> errors = TransferValidator.Validate(transferDto);
         if(!errors.isEmpty()){
@@ -101,16 +106,22 @@ public class TransferServiceImpli implements TransferService {
             throw new InvalidEntityException("Transfer n'est pas valide", ErrorCodes.TRANSFER_NOT_VALID, errors);
         }
 
-        compteEmetteur.setSolde(compteEmetteur.getSolde().subtract(transferDto.getMontantTransfer()));
-        compteBeneficiaire.setSolde(compteBeneficiaire.getSolde().add(transferDto.getMontantTransfer()));
+        Compte compteEmetteur = compteRepository.findByNrCompte(transferDto.getNrCompteEmetteur());
+        Compte compteBeneficiaire = compteRepository.findByNrCompte(transferDto.getNrCompteBeneficiaire());
 
-        compteRepository.save(compteEmetteur);
-        compteRepository.save(compteBeneficiaire);
+        BigDecimal solde = compteEmetteur.getSolde();
+        BigDecimal montant = transferDto.getMontantTransfer();
+
+        if(TransferValidator.validateSoldeValue(solde,montant)) {
+            compteEmetteur.setSolde(solde.subtract(montant));
+            compteBeneficiaire.setSolde(compteBeneficiaire.getSolde().add(montant));
+        }
+
+        compteService.save(CompteDto.fromEntity(compteEmetteur));
+        compteService.save(CompteDto.fromEntity(compteBeneficiaire));
         auditService.audit(transferDto, EventType.TRANSFER);
+
         save(transferDto);
-
-
-
 
         return transferDto;
 
@@ -118,6 +129,7 @@ public class TransferServiceImpli implements TransferService {
 
     @Override
     public TransferDto save(TransferDto transferDto) throws TransactionException {
+
         return TransferDto.fromEntity(transferRepository.save(TransferDto.toEntity(transferDto)));
     }
 

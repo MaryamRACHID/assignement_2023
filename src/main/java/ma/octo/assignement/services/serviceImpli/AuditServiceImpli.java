@@ -45,11 +45,9 @@ public class AuditServiceImpli implements AuditService {
     public String auditTransfer(TransferDto transferDto){
 
         String message = "Audit de l'événement : Transfert"+
-                "Emetteur :"+transferDto.getCompteEmetteur().getUtilisateurDto().getFirstName()+" "
-                +transferDto.getCompteEmetteur().getUtilisateurDto().getLastName()+
                 " | Montant :"+transferDto.getMontantTransfer()+" DH | Beneficiaire : "+
-                transferDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
-                +transferDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
+                //transferDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
+                //+transferDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
                 " | Motif :"+transferDto.getMotifTransfer();
 
         return message;
@@ -61,8 +59,8 @@ public class AuditServiceImpli implements AuditService {
         String message = "Audit de l'événement : Deposit"+
                 "Emetteur :"+moneyDepositDto.getNomEmetteur()+" "+
                 " | Montant :"+moneyDepositDto.getMontant()+" DH | Beneficiaire : "+
-                moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
-                +moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
+                //moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
+                //+moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
                 " | Motif :"+moneyDepositDto.getMotifDeposit();
 
         return message;

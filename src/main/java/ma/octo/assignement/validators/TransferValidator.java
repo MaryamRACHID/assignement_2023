@@ -28,19 +28,19 @@ public class TransferValidator {
             return errors;
         }
 
-        //org.springframework.util.StringUtils
+        /*org.springframework.util.StringUtils
         if (transferDto.getCompteEmetteur() == null){
             errors.add("Erreur liée au Compte de l'émetteur, essayer à nouveau");
         }
+ if (transferDto.getCompteBeneficiaire() == null){
+            errors.add("Erreur liée au Compte de beneficiaire, essayer à nouveau");
+        }
+
+*/
 
         if (!StringUtils.hasLength(transferDto.getNrCompteEmetteur())) {
             errors.add("Veuillez renseigner le Numéro de compte");
         }
-
-        if (transferDto.getCompteBeneficiaire() == null){
-            errors.add("Erreur liée au Compte de beneficiaire, essayer à nouveau");
-        }
-
 
         if (!StringUtils.hasLength(transferDto.getNrCompteBeneficiaire())) {
             errors.add("Veuillez renseigner le Numéro de compte ");
@@ -60,9 +60,9 @@ public class TransferValidator {
             errors.add("Veuillez renseigner le motif de transfer");
         }
 
-        if(transferDto.getCompteEmetteur() != null && transferDto.getCompteBeneficiaire() != null) {
+        /*if(transferDto.getCompteEmetteur() != null && transferDto.getCompteBeneficiaire() != null) {
             validateSoldeValue(transferDto.getCompteEmetteur().getSolde(), transferDto.getMontantTransfer());
-        }
+        }*/
 
         return errors;
     }
@@ -78,13 +78,12 @@ public class TransferValidator {
             throw new TransactionException("Montant maximal de transfer dépassé");}
     }
 
-    public static void validateSoldeValue(BigDecimal solde, BigDecimal montant) throws SoldeDisponibleInsuffisantException {
+    public static Boolean validateSoldeValue(BigDecimal solde, BigDecimal montant) throws SoldeDisponibleInsuffisantException {
         if(montant.intValue() > solde.intValue()){
             errors.add("Votre solde est insuffisant");
             throw new SoldeDisponibleInsuffisantException("Votre solde est insuffisant");
         }
-
-
+        return true;
     }
 
 

@@ -14,6 +14,11 @@ public class CompteDto {
     private String nrCompte;
 
     private BigDecimal solde;
+
+    private String rib;
+
+    //private Long idUtilisateur;
+
     private UtilisateurDto utilisateurDto;
 
 
@@ -25,7 +30,8 @@ public class CompteDto {
         return CompteDto.builder()
                 .nrCompte(compte.getNrCompte())
                 .solde(compte.getSolde())
-                .utilisateurDto(UtilisateurDto.fromEntity(compte.getUtilisateur()))
+                .rib(compte.getRib())
+                //.utilisateurDto(UtilisateurDto.fromEntity(compte.getUtilisateur()))
                 .build();
 
     }
@@ -38,8 +44,10 @@ public class CompteDto {
         Compte compte = new Compte();
         compte.setNrCompte(compteDto.getNrCompte());
         compte.setSolde(compteDto.getSolde());
-        compte.setUtilisateur(UtilisateurDto.toEntity(compteDto.utilisateurDto));
+        compte.setRib(compteDto.getRib());
+        //compte.setUtilisateur(UtilisateurDto.toEntity(compteDto.utilisateurDto));
         return compte;
+
     }
 
 }

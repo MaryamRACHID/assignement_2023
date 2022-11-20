@@ -15,9 +15,11 @@ public class Transfer {
   private Long id;
 
   @ManyToOne
+  @JoinColumn(name="COMPTEEMETTEUR_ID ")
   private Compte compteEmetteur;
 
   @ManyToOne
+  @JoinColumn(name="COMPTEBENEFICIAIRE_ID")
   private Compte compteBeneficiaire;
 
   @Column(precision = 16, scale = 2, nullable = false)

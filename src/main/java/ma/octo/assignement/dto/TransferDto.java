@@ -1,5 +1,6 @@
 package ma.octo.assignement.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import ma.octo.assignement.models.Transfer;

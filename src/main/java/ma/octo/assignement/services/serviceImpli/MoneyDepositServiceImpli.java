@@ -3,13 +3,13 @@ package ma.octo.assignement.services.serviceImpli;
 import lombok.extern.slf4j.Slf4j;
 import ma.octo.assignement.models.Compte;
 import ma.octo.assignement.models.MoneyDeposit;
+import ma.octo.assignement.repositories.CompteRepository;
 import ma.octo.assignement.utils.EventType;
 import ma.octo.assignement.dto.MoneyDepositDto;
 import ma.octo.assignement.exceptions.EntityNotFoundException;
 import ma.octo.assignement.exceptions.ErrorCodes;
 import ma.octo.assignement.exceptions.InvalidEntityException;
 import ma.octo.assignement.exceptions.TransactionException;
-import ma.octo.assignement.repositories.CompteRepository;
 import ma.octo.assignement.repositories.MoneyDepositRepository;
 import ma.octo.assignement.repositories.UtilisateurRepository;
 import ma.octo.assignement.services.AuditService;
@@ -105,7 +105,7 @@ public class MoneyDepositServiceImpli implements MoneyDepositService {
         List<String> errors = MoneyDepositValidator.Validate(moneyDepositDto);
         if(!errors.isEmpty()){
             log.error("Deposit n'est pas valide", moneyDepositDto);
-            throw new InvalidEntityException("Transfer n'est pas valide", ErrorCodes.DEPOSIT_NOT_VALID, errors);
+            throw new InvalidEntityException("Deposit n'est pas valide", ErrorCodes.DEPOSIT_NOT_VALID, errors);
         }
 
         compteBeneficiaire.setSolde(compteBeneficiaire.getSolde().add(moneyDepositDto.getMontant()));

@@ -2,6 +2,7 @@ package ma.octo.assignement.controllers.api;
 
 
 import ma.octo.assignement.dto.TransferDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
 import ma.octo.assignement.exceptions.TransactionException;
 import org.springframework.http.MediaType;
@@ -28,8 +29,8 @@ public interface TransferAPI {
     @DeleteMapping(value = APP_ROOT + "/transfer/supprimer/{idTransfer}")
     void delete(@PathVariable("idTransfer") Long id);
 
-    @PostMapping(value = APP_ROOT + "/transfer/{executerTransfers}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void createTransaction(@RequestBody TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException;
+    @PostMapping(value = APP_ROOT + "/transfer/executerTransfers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    void createTransaction(@RequestBody TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException, CompteNonExistantException;
 
 
 }

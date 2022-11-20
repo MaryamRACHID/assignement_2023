@@ -20,9 +20,6 @@ public class UtilisateurValidator {
         if(utilisateurDto == null){
             errors.add("Veuillez renseigner le nom de l'utilisateur'");
             errors.add("Veuillez renseigner le prenom de l'utilisateur'");
-            errors.add("Veuillez renseigner l'email de l'utilisateur'");
-            errors.add("Veuillez renseigner un mot de passe pour l'utilisateur'");
-            errors.add("Veuillez renseigner l'adresse de l'utilisateur'");
             return errors;
         }
 
@@ -35,16 +32,11 @@ public class UtilisateurValidator {
         }
 
         if (!StringUtils.hasLength(utilisateurDto.getUsername())){
-            errors.add("Veuillez renseigner un mot d'utilisateur'");
+            errors.add("Veuillez renseigner un username");
         }
 
         if (!StringUtils.hasLength(utilisateurDto.getGender())){
             errors.add("Veuillez renseigner le genre pour l'utilisateur'");
-        }
-
-
-        if(utilisateurDto.getBirthDate() == null){
-            errors.add("Veuillez renseigner une date de naissance pour l'utilisateur'");
         }
 
         return errors;

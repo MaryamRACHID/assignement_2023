@@ -25,9 +25,6 @@ public class MoneyDepositValidator {
             errors.add("Veuillez renseigner le Nom de l'emetteur");
         }
 
-        if (moneyDepositDto.getCompteBeneficiaire() == null){
-            errors.add("Erreur liée au Compte de beneficiaire, essayer à nouveau");
-        }
 
         if (!StringUtils.hasLength(moneyDepositDto.getNrCompteBeneficiaire())) {
             errors.add("Veuillez renseigner le Numéro de compte");

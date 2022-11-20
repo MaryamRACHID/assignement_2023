@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +17,7 @@ public class Compte {
   @Column(length = 16, unique = true)
   private String nrCompte;
 
+  @Column(length = 16, unique = true)
   private String rib;
 
   @Column(precision = 16, scale = 2)

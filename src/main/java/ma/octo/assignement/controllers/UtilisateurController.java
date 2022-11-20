@@ -5,6 +5,7 @@ import ma.octo.assignement.services.CompteService;
 import ma.octo.assignement.services.UtilisateurService;
 import ma.octo.assignement.controllers.api.UtilisateurAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

@@ -12,6 +12,8 @@ import ma.octo.assignement.services.UtilisateurService;
 import ma.octo.assignement.validators.UtilisateurValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional
 public class UtilisateurServiceImpli implements UtilisateurService {
 
     private UtilisateurRepository utilisateurRepository;
@@ -39,11 +42,13 @@ public class UtilisateurServiceImpli implements UtilisateurService {
 
     @Override
     public UtilisateurDto save(UtilisateurDto utilisateurDto) {
+
         List<String> errors = UtilisateurValidator.validate(utilisateurDto);
         if(!errors.isEmpty()){
-            log.error("L'utilisateur est null");
-            throw new InvalidEntityException("L'utilisateur' est null", ErrorCodes.UTILISATEUR_NOT_VALID);
+            log.error("L'utilisateur est null", utilisateurDto);
+            throw new InvalidEntityException("L'utilisateur est null", ErrorCodes.UTILISATEUR_NOT_VALID);
         }
+
         return UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
 
     }

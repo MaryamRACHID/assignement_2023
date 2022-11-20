@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface CompteRepository extends JpaRepository<Compte, Long> {
 
     Compte findByNrCompte(String nrCompte);
+
     Compte findByRib(String rib);
+
     Optional<Compte> findComptesByUtilisateurId(Long id);
 
 

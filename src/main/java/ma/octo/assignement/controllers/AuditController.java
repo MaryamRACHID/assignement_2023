@@ -3,6 +3,7 @@ package ma.octo.assignement.controllers;
 import ma.octo.assignement.controllers.api.AuditAPI;
 import ma.octo.assignement.utils.EventType;
 import ma.octo.assignement.services.AuditService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
