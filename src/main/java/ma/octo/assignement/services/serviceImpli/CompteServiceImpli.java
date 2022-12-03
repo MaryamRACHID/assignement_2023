@@ -2,14 +2,10 @@ package ma.octo.assignement.services.serviceImpli;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.octo.assignement.dto.CompteDto;
-import ma.octo.assignement.dto.UtilisateurDto;
 import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.exceptions.ErrorCodes;
 import ma.octo.assignement.exceptions.InvalidEntityException;
-import ma.octo.assignement.models.Compte;
-import ma.octo.assignement.models.Utilisateur;
 import ma.octo.assignement.repositories.CompteRepository;
-import ma.octo.assignement.repositories.UtilisateurRepository;
 import ma.octo.assignement.services.CompteService;
 import ma.octo.assignement.services.UtilisateurService;
 import ma.octo.assignement.validators.CompteValidator;
@@ -27,7 +23,7 @@ public class CompteServiceImpli implements CompteService {
     UtilisateurService utilisateurService;
 
     @Autowired
-    CompteServiceImpli(CompteRepository compteRepository, UtilisateurService utilisateurService){
+    CompteServiceImpli(CompteRepository compteRepository, UtilisateurService utilisateurService) {
 
         this.compteRepository = compteRepository;
         this.utilisateurService = utilisateurService;
@@ -36,10 +32,12 @@ public class CompteServiceImpli implements CompteService {
     @Override
     public CompteDto save(CompteDto compteDto) throws CompteNonExistantException {
         List<String> errors = CompteValidator.validate(compteDto);
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("Le compte est null");
             throw new InvalidEntityException("Le compte est null", ErrorCodes.COMPTE_NOT_FOUND);
         }
+
+
         return CompteDto.fromEntity(compteRepository.save(CompteDto.toEntity(compteDto)));
 
     }

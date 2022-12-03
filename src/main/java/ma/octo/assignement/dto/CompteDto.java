@@ -11,15 +11,17 @@ import java.math.BigDecimal;
 @Builder
 public class CompteDto {
 
+    private  Long id;
+
     private String nrCompte;
 
     private BigDecimal solde;
 
     private String rib;
 
-    //private Long idUtilisateur;
+//    private Long idUtilisateur;
 
-    private UtilisateurDto utilisateurDto;
+//    private UtilisateurDto utilisateurDto;
 
 
     public static CompteDto fromEntity(Compte compte){
@@ -28,6 +30,7 @@ public class CompteDto {
             return null;
         }
         return CompteDto.builder()
+                .id(compte.getId())
                 .nrCompte(compte.getNrCompte())
                 .solde(compte.getSolde())
                 .rib(compte.getRib())
@@ -41,10 +44,13 @@ public class CompteDto {
         if(compteDto == null){
             return null;
         }
+
         Compte compte = new Compte();
+        compte.setId(compteDto.getId());
         compte.setNrCompte(compteDto.getNrCompte());
         compte.setSolde(compteDto.getSolde());
         compte.setRib(compteDto.getRib());
+
         //compte.setUtilisateur(UtilisateurDto.toEntity(compteDto.utilisateurDto));
         return compte;
 

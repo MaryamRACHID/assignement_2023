@@ -15,8 +15,6 @@ public class MoneyDepositDto {
 
   private BigDecimal montant;
 
-  private CompteDto compteBeneficiaire;
-
   private String nrCompteBeneficiaire;
 
   private Date dateExecution;
@@ -32,27 +30,10 @@ public class MoneyDepositDto {
     return MoneyDepositDto.builder()
             .nomEmetteur(moneyDeposit.getNomEmetteur())
             .montant(moneyDeposit.getMontant())
-            .compteBeneficiaire(CompteDto.fromEntity(moneyDeposit.getCompteBeneficiaire()))
             .nrCompteBeneficiaire(CompteDto.fromEntity(moneyDeposit.getCompteBeneficiaire()).getNrCompte())
             .dateExecution(moneyDeposit.getDateExecution())
             .motifDeposit(moneyDeposit.getMotifDeposit())
             .build();
-
-  }
-
-  public static MoneyDeposit toEntity(MoneyDepositDto moneyDepositDto){
-
-    if(moneyDepositDto == null){
-      return null;
-    }
-    MoneyDeposit moneyDeposit = new MoneyDeposit();
-    moneyDeposit.setNomEmetteur(moneyDepositDto.getNomEmetteur());
-    moneyDeposit.setMontant(moneyDepositDto.getMontant());
-    moneyDeposit.setCompteBeneficiaire(CompteDto.toEntity(moneyDepositDto.getCompteBeneficiaire()));
-    moneyDeposit.setDateExecution(moneyDeposit.getDateExecution());
-
-    return moneyDeposit;
-
   }
 
 

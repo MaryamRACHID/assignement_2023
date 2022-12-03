@@ -18,4 +18,5 @@ public class AuditController implements AuditAPI {
     public void audit(Object event, EventType eventType) {
         auditService.audit(event, eventType);
     }
+
 }

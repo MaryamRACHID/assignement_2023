@@ -19,9 +19,7 @@ public class TransferController implements TransferAPI {
     private TransferService transferService;
 
     @Autowired
-    public TransferController(TransferService transferService) {
-        this.transferService = transferService;
-    }
+    public TransferController(TransferService transferService) { this.transferService = transferService; }
 
     public TransferDto findById(Long id){ return  transferService.findById(id); }
 
@@ -33,7 +31,7 @@ public class TransferController implements TransferAPI {
 
     public void delete(Long id){ transferService.delete(id); }
 
-    public void createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException, CompteNonExistantException {
-        transferService.createTransaction(transferDto);
+    public TransferDto createTransaction(TransferDto transferDto) throws TransactionException, SoldeDisponibleInsuffisantException, CompteNonExistantException {
+        return transferService.createTransaction(transferDto);
     }
 }

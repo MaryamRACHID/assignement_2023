@@ -28,7 +28,7 @@ public interface MoneyDepositAPI {
     void delete(@PathVariable("idDeposit") Long id);
 
     @PostMapping(value = APP_ROOT + "/deposit/executerDeposit", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void createTransaction(@RequestBody MoneyDepositDto transferDto) throws TransactionException;
+    MoneyDepositDto createTransaction(@RequestBody MoneyDepositDto transferDto) throws TransactionException;
 
 
 }

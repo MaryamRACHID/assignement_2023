@@ -46,8 +46,6 @@ public class AuditServiceImpli implements AuditService {
 
         String message = "Audit de l'événement : Transfert"+
                 " | Montant :"+transferDto.getMontantTransfer()+" DH | Beneficiaire : "+
-                //transferDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
-                //+transferDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
                 " | Motif :"+transferDto.getMotifTransfer();
 
         return message;
@@ -59,8 +57,6 @@ public class AuditServiceImpli implements AuditService {
         String message = "Audit de l'événement : Deposit"+
                 "Emetteur :"+moneyDepositDto.getNomEmetteur()+" "+
                 " | Montant :"+moneyDepositDto.getMontant()+" DH | Beneficiaire : "+
-                //moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getFirstName()+" "
-                //+moneyDepositDto.getCompteBeneficiaire().getUtilisateurDto().getLastName()+
                 " | Motif :"+moneyDepositDto.getMotifDeposit();
 
         return message;

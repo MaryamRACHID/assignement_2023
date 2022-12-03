@@ -23,7 +23,7 @@ public interface CompteAPI {
     CompteDto findByNrCompte(@PathVariable("nrCompte") String nrCompte);
 
     @GetMapping(value = APP_ROOT + "/compte/ribCompte/{rib}", produces = MediaType.APPLICATION_JSON_VALUE)
-    CompteDto findByRib(@PathVariable("rip") String rib);
+    CompteDto findByRib(@PathVariable("rib") String rib);
 
     @GetMapping(value = APP_ROOT + "/compte/id/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
     List<CompteDto> findComptesByUtilisateurId(@PathVariable("idUser")Long idUser);

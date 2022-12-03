@@ -16,21 +16,18 @@ import java.util.List;
 @RestController
 public class MoneyDepositController implements MoneyDepositAPI {
 
-
     private MoneyDepositService moneyDepositService;
 
     @Autowired
     public MoneyDepositController(MoneyDepositService moneyDepositService){
-        this.moneyDepositService = moneyDepositService;
-    }
+        this.moneyDepositService = moneyDepositService; }
 
     @Override
     public MoneyDepositDto findById(Long id) { return moneyDepositService.findById(id); }
 
     @Override
     public MoneyDepositDto findBynomEmetteur(String nomEmetteur) {
-        return moneyDepositService.findBynomEmetteur(nomEmetteur);
-    }
+        return moneyDepositService.findBynomEmetteur(nomEmetteur); }
 
     @Override
     public MoneyDepositDto findByNrCompteBeneficiaire(String nrCompte) {
@@ -46,7 +43,8 @@ public class MoneyDepositController implements MoneyDepositAPI {
     public void delete(Long id) { moneyDepositService.delete(id); }
 
     @Override
-    public void createTransaction(MoneyDepositDto moneyDepositDto) throws TransactionException {
-        moneyDepositService.createTransaction(moneyDepositDto);
+    public MoneyDepositDto createTransaction(MoneyDepositDto moneyDepositDto) throws TransactionException {
+       return moneyDepositService.createTransaction(moneyDepositDto);
     }
+
 }

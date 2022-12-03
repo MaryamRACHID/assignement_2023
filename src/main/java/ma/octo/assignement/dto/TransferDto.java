@@ -12,11 +12,8 @@ import java.util.Date;
 @Builder
 public class TransferDto {
 
-  private CompteDto compteEmetteur;
 
   private String nrCompteEmetteur;
-
-  private CompteDto compteBeneficiaire;
 
   private String nrCompteBeneficiaire;
 
@@ -32,9 +29,9 @@ public class TransferDto {
       return null;
     }
     return TransferDto.builder()
-            .compteEmetteur(CompteDto.fromEntity(transfer.getCompteEmetteur()))
+
             .nrCompteEmetteur(CompteDto.fromEntity(transfer.getCompteEmetteur()).getNrCompte())
-            .compteBeneficiaire(CompteDto.fromEntity(transfer.getCompteBeneficiaire()))
+
             .nrCompteBeneficiaire(CompteDto.fromEntity(transfer.getCompteBeneficiaire()).getNrCompte())
             .montantTransfer(transfer.getMontantTransfer())
             .dateExecution(transfer.getDateExecution())
@@ -43,21 +40,6 @@ public class TransferDto {
 
   }
 
-  public static Transfer toEntity(TransferDto transferDto){
-
-    if(transferDto == null){
-      return null;
-    }
-    Transfer transfer = new Transfer();
-    transfer.setCompteEmetteur(CompteDto.toEntity(transferDto.getCompteEmetteur()));
-    transfer.setCompteBeneficiaire(CompteDto.toEntity(transferDto.getCompteBeneficiaire()));
-    transfer.setMontantTransfer(transferDto.getMontantTransfer());
-    transfer.setDateExecution(transferDto.getDateExecution());
-    transfer.setMotifTransfer(transferDto.getMotifTransfer());
-
-    return transfer;
-
-  }
 
 
 }

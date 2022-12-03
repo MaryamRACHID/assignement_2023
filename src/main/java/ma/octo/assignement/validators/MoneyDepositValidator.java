@@ -4,7 +4,6 @@ import ma.octo.assignement.utils.Constants;
 import ma.octo.assignement.dto.MoneyDepositDto;
 import ma.octo.assignement.exceptions.TransactionException;
 import org.springframework.util.StringUtils;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +49,11 @@ public class MoneyDepositValidator {
 
     public static void validateMontantValue(BigDecimal montant) throws TransactionException {
 
-        if(montant.intValue() < Constants.MONTANT_DEPOSIT_MINIMAL){
+        if(montant.compareTo(Constants.MONTANT_DEPOSIT_MINIMAL) == -1){
             errors.add("Montant minimal non atteint");
             throw new TransactionException("Montant minimal non atteint");
         }
-        if (montant.intValue() >Constants.MONTANT_DEPOSIT_MAXIMAL){
+        if (montant.compareTo(Constants.MONTANT_DEPOSIT_MAXIMAL) == 1){
             errors.add("Montant maximal dépassé");
             throw new TransactionException("Montant maximal dépassé");}
     }

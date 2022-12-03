@@ -18,6 +18,8 @@ import ma.octo.assignement.validators.MoneyDepositValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -104,6 +106,7 @@ public class MoneyDepositServiceImpli implements MoneyDepositService {
 
         List<String> errors = MoneyDepositValidator.Validate(moneyDepositDto);
         if(!errors.isEmpty()){
+            System.out.println(errors);
             log.error("Deposit n'est pas valide", moneyDepositDto);
             throw new InvalidEntityException("Deposit n'est pas valide", ErrorCodes.DEPOSIT_NOT_VALID, errors);
         }
@@ -111,16 +114,26 @@ public class MoneyDepositServiceImpli implements MoneyDepositService {
         compteBeneficiaire.setSolde(compteBeneficiaire.getSolde().add(moneyDepositDto.getMontant()));
 
         compteRepository.save(compteBeneficiaire);
+        save(moneyDepositDto.getNomEmetteur(),compteBeneficiaire,moneyDepositDto.getMontant(),moneyDepositDto.getMotifDeposit(),moneyDepositDto.getDateExecution());
         auditService.audit(moneyDepositDto, EventType.DEPOSIT);
-        save(moneyDepositDto);
+
 
         return moneyDepositDto;
     }
 
+//    @Override
+//    public MoneyDepositDto save(MoneyDepositDto moneyDepositDto) throws TransactionException {
+//        return MoneyDepositDto.fromEntity(moneyDepositRepository.save(MoneyDepositDto.toEntity(moneyDepositDto)));
+//    }
     @Override
-    public MoneyDepositDto save(MoneyDepositDto moneyDepositDto) throws TransactionException {
-        return MoneyDepositDto.fromEntity(moneyDepositRepository.save(MoneyDepositDto.toEntity(moneyDepositDto)));
-    }
-
+public void save(String emetteurName, Compte compteBeneficiaire, BigDecimal montantTransfer, String motifDeposit, Date date) throws TransactionException {
+    MoneyDeposit moneyDeposit = new  MoneyDeposit();
+    moneyDeposit.setNomEmetteur(emetteurName);
+    moneyDeposit.setMontant(montantTransfer);
+    moneyDeposit.setCompteBeneficiaire(compteBeneficiaire);
+    moneyDeposit.setDateExecution(date);
+    moneyDeposit.setMotifDeposit(motifDeposit);
+    moneyDepositRepository.save(moneyDeposit);
+}
 
 }

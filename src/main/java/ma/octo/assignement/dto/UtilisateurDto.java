@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Builder
 public class UtilisateurDto {
-
+    private  Long id;
     private String username;
 
     private String gender;
@@ -27,6 +27,7 @@ public class UtilisateurDto {
             return null;
         }
         return UtilisateurDto.builder()
+                .id(utilisateur.getId())
                 .username(utilisateur.getUsername())
                 .gender(utilisateur.getGender())
                 .lastName(utilisateur.getLastName())
@@ -42,6 +43,7 @@ public class UtilisateurDto {
             return null;
         }
         Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(utilisateurDto.getId());
         utilisateur.setUsername(utilisateurDto.getUsername());
         utilisateur.setGender(utilisateurDto.getGender());
         utilisateur.setLastName(utilisateurDto.getLastName());

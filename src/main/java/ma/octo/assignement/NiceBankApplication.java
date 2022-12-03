@@ -47,17 +47,17 @@ public class NiceBankApplication implements CommandLineRunner {
 		utilisateurRepository.save(utilisateur2);
 
 		Compte compte1 = new Compte();
-		compte1.setNrCompte("010000A000001000");
+		compte1.setNrCompte("c1");
 		compte1.setRib("RIB1");
-		compte1.setSolde(BigDecimal.valueOf(200000L));
+		compte1.setSolde(BigDecimal.valueOf(90000L));
 		compte1.setUtilisateur(utilisateur1);
 
 		compteRepository.save(compte1);
 
 		Compte compte2 = new Compte();
-		compte2.setNrCompte("010000B025001000");
+		compte2.setNrCompte("c2");
 		compte2.setRib("RIB2");
-		compte2.setSolde(BigDecimal.valueOf(140000L));
+		compte2.setSolde(BigDecimal.valueOf(20000L));
 		compte2.setUtilisateur(utilisateur2);
 
 		compteRepository.save(compte2);
